@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../basicComponents/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,21 +20,28 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/login');
+
+    try {
+      await axios.post('http://localhost:4000/api/register', form);
+      navigate('/login');
+    } catch (err) {
+      console.error("Error registering user:", err);
+      // Optionally handle error here
+    }
   };
 
   return (
-    <div className='w-screen  sm:h-screen flex justify-center items-center flex-col gap-2 '>
+    <div className='w-screen sm:h-screen flex justify-center items-center flex-col gap-2 '>
       <Navbar />
-      <div className='w-[70vw] sm:w-[40%] sm:h-[80%] h-[60vh] p-2 bg-slate-800  text-white flex flex-col justify-center items-center gap-4 sm:gap-2  border-2 border-black rounded'>
-        <form onSubmit={handleSubmit} className=' flex flex-col gap-4 mt-4 sm:mt-0 sm:gap-2'>
+      <div className='w-[70vw] sm:w-[40%] sm:h-[80%] h-[60vh] p-2 bg-slate-800 text-white flex flex-col justify-center items-center gap-4 sm:gap-2 border-2 border-black rounded'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4 mt-4 sm:mt-0 sm:gap-2'>
           <label htmlFor="fullname">Name :</label>
           <input
             type="text"
             name='fullname'
-            className='border-black border-2 rounded'
+            className='border-black border-2 rounded text-black'
             value={form.fullname}
             onChange={handleChange}
           />
@@ -42,7 +50,7 @@ const Register = () => {
           <input
             type="email"
             name='emailid'
-            className='border-black border-2 rounded'
+            className='border-black border-2 rounded text-black'
             value={form.emailid}
             onChange={handleChange}
           />
@@ -51,7 +59,7 @@ const Register = () => {
           <input
             type="text"
             name='username'
-            className='border-black border-2 rounded'
+            className='border-black border-2 rounded text-black'
             value={form.username}
             onChange={handleChange}
           />
@@ -60,7 +68,7 @@ const Register = () => {
           <input
             type="password"
             name="password"
-            className='border-black border-2 rounded'
+            className='border-black border-2 rounded text-black'
             value={form.password}
             onChange={handleChange}
           />
