@@ -38,7 +38,7 @@ const Login = () => {
         <input
           type="text"
           name='username'
-          className='border-black border-2 rounded'
+          className='border-black border-2 rounded  text-black'
           value={form.username}
           onChange={handleChange}
         />
